@@ -1,0 +1,37 @@
+ Performance counter stats for './sieve_paralelo':
+
+       5768,878601      task-clock (msec)         #    1,962 CPUs utilized          
+               503      context-switches          #    0,087 K/sec                  
+                 1      cpu-migrations            #    0,000 K/sec                  
+            24.493      page-faults               #    0,004 M/sec                  
+    13.528.969.200      cycles                    #    2,345 GHz                      (24,93%)
+     3.688.306.505      instructions              #    0,27  insn per cycle           (37,50%)
+       471.075.268      branches                  #   81,658 M/sec                    (37,65%)
+         7.156.698      branch-misses             #    1,52% of all branches          (37,63%)
+     2.810.202.121      L1-dcache-loads           #  487,131 M/sec                    (24,97%)
+         5.806.268      L1-dcache-load-misses     #    0,21% of all L1-dcache hits    (25,01%)
+         6.509.339      LLC-loads                 #    1,128 M/sec                    (24,96%)
+           339.680      LLC-load-misses           #    5,22% of all LL-cache hits     (24,86%)
+
+       2,939989166 seconds time elapsed
+
+       
+ Performance counter stats for './sieve_sequencial':
+
+       4616,944999      task-clock (msec)         #    0,997 CPUs utilized          
+               389      context-switches          #    0,084 K/sec                  
+                 1      cpu-migrations            #    0,000 K/sec                  
+            24.479      page-faults               #    0,005 M/sec                  
+     7.663.905.370      cycles                    #    1,660 GHz                      (24,97%)
+     3.673.863.313      instructions              #    0,48  insn per cycle           (37,51%)
+       463.100.207      branches                  #  100,304 M/sec                    (37,60%)
+         6.859.946      branch-misses             #    1,48% of all branches          (37,62%)
+     2.795.955.463      L1-dcache-loads           #  605,586 M/sec                    (25,00%)
+         5.584.172      L1-dcache-load-misses     #    0,20% of all L1-dcache hits    (24,99%)
+         6.071.316      LLC-loads                 #    1,315 M/sec                    (24,94%)
+           283.452      LLC-load-misses           #    4,67% of all LL-cache hits     (24,87%)
+
+       4,630495073 seconds time elapsed
+       
+
+

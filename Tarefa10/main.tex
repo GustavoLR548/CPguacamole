@@ -1,0 +1,86 @@
+\documentclass{article}
+\usepackage[table]{xcolor}
+\usepackage{listings}
+%encoding
+%--------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%--------------------------------------
+
+%Portuguese-specific commands
+%--------------------------------------
+\usepackage[portuguese]{babel}
+%--------------------------------------
+\setlength{\arrayrulewidth}{0.5mm}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{2.5}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{document} {
+
+  \rowcolors{2}{gray!25}{white}
+
+\section{Tabela}
+
+\begin{table}[ht]
+   \centering
+	\begin{tabular}{ | c | c | c | }
+   		\rowcolor{blue!80!yellow!50}
+		\hline
+		\multicolumn{3}{|c|}{Código sequencial} \\
+		\rowcolor{green!80!yellow!50}
+		\hline
+		Contador & Sequencial & Paralelo \\
+		Task-clock (msec) & 0,997 CPUs & 1,962 CPUs \\
+		Cycles & 1,660 GHz   & 2,345 GHz \\
+		L1-dcache-loads & 605,586 M/sec & 487,171 M/sec \\
+		Instructions (per cycle) & 0,48 & 0,27 \\
+    	LLC-load-misses & 4,67\% & 5,22\% \\
+		Time Elapsed & 4,63 s & 2,93 s\\
+		\hline
+   \end{tabular}
+   \caption{Comparação do sieve.c paralelo e sequencial no servidor parcode}
+\end{table}
+
+Professor, assim como discutido pelo teams: tanto o servidor parcode, quanto o meu computador não conseguiram extrair todas as informações usando o perf stats -d(sendo essas informações o  frontend cycles idle (ciclos ociosos na ULA) e o backend cycles idle (ciclos ociosos na busca de instrução)), logo essas informações foram substituidas pelo "Cycles" e o "L1-dcache-loads" respectivamente.
+
+\newpage
+
+\section{Código}
+
+\lstinputlisting[language=c]{sieve.c}
+
+\newpage
+
+\section{Gargalos}
+
+Usando o código na seção anterior, podemos identificar os gargalos nas regiões da linha 23 e 30, onde tem a maior parte da execução do programa, e é onde tem um laço de repetição 'for' dentro de outro 'for'
+
+Para melhorar o tempo de execução do programa, o ideal seria a utilização do scheduler, pois irá garantir que haverá um maior balançeamento de cargas entre as threads durante a execução do programa, permitindo com que um número menor de threads fiquem ociosas.
+
+\end{document}
