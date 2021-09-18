@@ -14,21 +14,33 @@ void swap(int *xp, int *yp)
 void bubbleSort(int arr[], int n)
 {
 
-   #pragma omp parallel for schedule(dynamic,100)
-   for (int i = 0; i < n-1; i++)      
-       for (int j = 0; j < n-i-1; j++) 
-           if (arr[j] > arr[j+1])
-              swap(&arr[j], &arr[j+1]);
+   int j = 0;
+   int i = 0;
+   int first;
+
+   #pragma omp parallel for default(none),shared(arr,i,n,first)
+   for (i = 0; i < n-1; i++) {  
+       
+       first = i % 2; 
+	   #pragma omp parallel for default(none),shared(arr,first,n)
+       for (j = first; j < n-1; j++) {
+            if (arr[j] > arr[j+1]) {
+                swap(&arr[j], &arr[j+1]);
+            }
+       }
+   }
 }
   
 // Verify if the array is in ascending order
 bool isArraySorted(int arr[], int size)
 {
+    bool result = true;
+    #pragma omp parallel for
     for (int i=0; i < size - 1; i++)
         if(arr[i] > arr[i+1]) 
-            return false;
+            result = false;
     
-    return true;
+    return result;
 }
   
 // Driver program to test above functions
