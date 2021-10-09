@@ -35,7 +35,6 @@ void bubbleSort(int arr[], int n)
 bool isArraySorted(int arr[], int size)
 {
     bool result = true;
-    #pragma omp parallel for
     for (int i=0; i < size - 1; i++)
         if(arr[i] > arr[i+1]) 
             result = false;
@@ -46,7 +45,7 @@ bool isArraySorted(int arr[], int size)
 // Driver program to test above functions
 int main()
 {
-    int i,n = 100000;
+    int i,n = 10000;
     int *arr = (int*) malloc(n*sizeof(int));
     
     #pragma omp parallel for
