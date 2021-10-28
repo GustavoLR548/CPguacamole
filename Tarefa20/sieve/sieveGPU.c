@@ -18,21 +18,21 @@ int sieveOfEratosthenes(int n)
    
    int i, p;
    
-   #pragma omp parallel for schedule (guided)
+   #pragma omp target map(tofrom:prime[1:n])
+   #pragma omp teams distribute parallel for simd schedule (dynamic,100)
    for (p=2; p <= sqrt_n; p++)
    {
        // If prime[p] is not changed, then it is a prime
        if (prime[p] == true)
        {
-         // Update all multiples of p
-   		#pragma omp parallel for 
 		   for(i=p*2; i<=n; i += p)
 	           prime[i] = false;
        }
    }
    
    // count prime numbers
-	#pragma omp parallel for reduction(+:primes)   
+   #pragma omp target map(from:prime[1:n]) map(to:primes)
+	#pragma omp teams distribute parallel for reduction(+:primes) schedule(guided)
 	for (int p=2; p<=n; p++)
        if (prime[p])
          primes++;

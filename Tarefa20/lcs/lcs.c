@@ -131,7 +131,8 @@ int LCSubStr(char *x, char *y, int m, int n)
 
   /* Following steps build LCSuff[m+1][n+1] in bottom up fashion. */
   
-    #pragma omp parallel for collapse(2) reduction(max:result) schedule(guided)
+    #pragma omp target map(tofrom:result) map(tofrom:LCSuff[0:m+1])
+    #pragma omp teams distribute parallel for reduction(max:result) collapse(2) schedule(guided)
     for (int i = 0; i <= m; i++)
     {
       for (int j = 0; j <= n; j++)
