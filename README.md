@@ -5,4 +5,4 @@
 Repositório para guardar trabalhos de Computação Paralela
 
 - [Projeto 1 - IA paralela](https://github.com/GustavoLR548/kmeans_imageSegmentation)
-- [Projeto 2 - Blockchain paralela](https://github.com/GustavoLR548/TestChain-openmp)
+- [Projeto 2 - Blockchain paralela](https://github.com/GustavoLR548/TestChain-Parallel)
